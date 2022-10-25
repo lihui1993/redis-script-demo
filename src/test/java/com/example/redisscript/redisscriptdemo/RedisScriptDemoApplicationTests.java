@@ -3,8 +3,6 @@ package com.example.redisscript.redisscriptdemo;
 import com.example.redisscript.redisscriptdemo.utils.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -18,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 class RedisScriptDemoApplicationTests {
 
     @Resource
-    private RedissonClient redissonClient;
+    private TryLockService tryLockService;
 
     @Test
     void contextLoads() {
@@ -47,29 +45,7 @@ class RedisScriptDemoApplicationTests {
     public void testRedisson() throws InterruptedException {
         String key = UUID.randomUUID().toString();
         for (int i = 0; i < 6; i++) {
-            new Thread(() -> {
-                RLock lock = redissonClient.getLock(key);
-                try {
-                    boolean lockResult = lock.tryLock(1000 * 11, 1000 * 20, TimeUnit.MILLISECONDS);
-                    log.info("key:{},lock:{},threadId:{}", key, lockResult, Thread.currentThread().getId());
-                    if (lockResult) {
-                        boolean lockResult2 = lock.tryLock(1000 * 11, 1000 * 20, TimeUnit.MILLISECONDS);
-                        log.info("key:{},lock2:{},threadId:{}", key, lockResult2, Thread.currentThread().getId());
-                        Thread.sleep(1000 * 10);
-                    }
-                } catch (InterruptedException e) {
-                    log.error("锁异常", e);
-                } finally {
-                    if (lock.isHeldByCurrentThread()) {
-                        int holdCount = lock.getHoldCount();
-                        log.info("threadId:{},holdCount:{}", Thread.currentThread().getId(), holdCount);
-                        for (int j = 1; j <= holdCount; j++) {
-                            lock.unlock();
-                            log.info("key:{},threadId:{},释放锁{}", key, Thread.currentThread().getId(), j);
-                        }
-                    }
-                }
-            }).start();
+            new Thread(() -> tryLockService.tryLockByKey(key)).start();
         }
         Thread.sleep(1000 * 50);
     }
