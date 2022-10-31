@@ -1,4 +1,4 @@
-package com.example.redisscript.redisscriptdemo;
+package com.example.redisscript.redisscriptdemo.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;

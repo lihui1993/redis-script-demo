@@ -1,9 +1,11 @@
 package com.example.redisscript.redisscriptdemo;
 
+import com.example.redisscript.redisscriptdemo.service.TryLockService;
 import com.example.redisscript.redisscriptdemo.utils.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.annotation.Resource;
 import java.time.Duration;
@@ -48,6 +50,12 @@ class RedisScriptDemoApplicationTests {
             new Thread(() -> tryLockService.tryLockByKey(key)).start();
         }
         Thread.sleep(1000 * 50);
+    }
+
+    @Test
+    public void testExceptionHandler(){
+        ServletResponseEnum servletResponseEnum = ServletResponseEnum.valueOf(NoHandlerFoundException.class.getSimpleName());
+        log.info("code:{},msg:{}",servletResponseEnum.getCode(),servletResponseEnum.getMessage());
     }
 
 }
