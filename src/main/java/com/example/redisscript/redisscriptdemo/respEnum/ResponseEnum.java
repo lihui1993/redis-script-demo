@@ -16,7 +16,7 @@ public enum ResponseEnum implements BusinessExceptionAssertUtils {
      */
     LICENCE_NOT_FOUND("7002", "Licence not found."),
 
-    LOCK_KEY_HAS_NOT_TEXT("","Lock key has not text."),
+    LOCK_KEY_HAS_NOT_TEXT("7003","Lock key has not text."),
     ;
     /**
      * 返回码

@@ -52,10 +52,5 @@ class RedisScriptDemoApplicationTests {
         Thread.sleep(1000 * 50);
     }
 
-    @Test
-    public void testExceptionHandler(){
-        ServletResponseEnum servletResponseEnum = ServletResponseEnum.valueOf(NoHandlerFoundException.class.getSimpleName());
-        log.info("code:{},msg:{}",servletResponseEnum.getCode(),servletResponseEnum.getMessage());
-    }
 
 }

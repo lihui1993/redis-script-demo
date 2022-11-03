@@ -16,8 +16,9 @@ public class TryLockService {
     private RedissonClient redissonClient;
 
 
-    public void tryLockByKey(String key) {
+    public boolean tryLockByKey(String key) {
         RLock lock = redissonClient.getLock(key);
+        boolean lockResult0 = false;
         try {
             log.info("key:{},threadId:{},tryLock start", key, Thread.currentThread().getId());
             boolean lockResult = lock.tryLock(1000, 1000 * 20, TimeUnit.MILLISECONDS);
@@ -38,7 +39,9 @@ public class TryLockService {
                     lock.unlock();
                     log.info("key:{},threadId:{},释放锁{}", key, Thread.currentThread().getId(), j);
                 }
+                lockResult0 = true;
             }
         }
+        return lockResult0;
     }
 }

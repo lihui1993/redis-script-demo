@@ -7,7 +7,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum CommonResponseEnum implements BusinessExceptionAssertUtils {
-    SERVER_ERROR("500","server.error");
+    SERVER_ERROR("500","server.error"),
+    SUCCESS("0000","server.ok"),
+    ;
     /**
      * 返回码
      */

@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ArgumentResponseEnum implements BusinessExceptionAssertUtils {
-    VALID_ERROR("", "");
+    VALID_ERROR("1000001", "参数错误");
     /**
      * 返回码
      */

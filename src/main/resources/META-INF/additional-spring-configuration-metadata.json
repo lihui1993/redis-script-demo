@@ -1,0 +1,53 @@
+{
+  "properties": [
+    {
+      "name": "alipay.appId",
+      "type": "java.lang.String",
+      "description": "Description for alipay.appId."
+    },
+    {
+      "name": "alipay.serverUrl",
+      "type": "java.lang.String",
+      "description": "Description for alipay.serverUrl."
+    },
+    {
+      "name": "alipay.privateKey",
+      "type": "java.lang.String",
+      "description": "Description for alipay.privateKey."
+    },
+    {
+      "name": "alipay.charset",
+      "type": "java.lang.String",
+      "description": "Description for alipay.charset."
+    },
+    {
+      "name": "alipay.format",
+      "type": "java.lang.String",
+      "description": "Description for alipay.format."
+    },
+    {
+      "name": "alipay.signType",
+      "type": "java.lang.String",
+      "description": "Description for alipay.signType."
+    },
+    {
+      "name": "alipay.certPath",
+      "type": "java.lang.String",
+      "description": "Description for alipay.certPath."
+    },
+    {
+      "name": "alipay.alipayPublicCertPath",
+      "type": "java.lang.String",
+      "description": "Description for alipay.alipayPublicCertPath."
+    },
+    {
+      "name": "alipay.rootCertPath",
+      "type": "java.lang.String",
+      "description": "Description for alipay.rootCertPath."
+    },
+    {
+      "name": "alipay.notifyUrl",
+      "type": "java.lang.String",
+      "description": "Description for alipay.notifyUrl."
+    }
+  ] }
