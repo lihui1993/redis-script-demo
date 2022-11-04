@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-@Schema(name = "订单退款参数")
+@Schema(name = "支付宝纯退款参数")
 public class OrderRefundRequest {
     @Schema(title = "原交易订单号",name = "outTradeNo",required = true)
     @NotBlank(message = "原交易订单号不能为空")
