@@ -7,6 +7,7 @@ import org.redisson.config.SingleServerConfig;
 import org.redisson.config.TransportMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -25,6 +26,7 @@ public class RedisConfig {
     private Environment environment;
 
     @Bean
+    @Lazy
     public RedissonClient redissonClient() {
         Config config = new Config();
         config.setTransportMode(TransportMode.NIO);
@@ -36,6 +38,7 @@ public class RedisConfig {
     }
 
     @Bean
+    @Lazy
     public LettuceConnectionFactory lettuceConnectionFactory() {
         return new LettuceConnectionFactory(
                 environment.getProperty("spring.redis.host", "127.0.0.1"),
@@ -49,11 +52,13 @@ public class RedisConfig {
      * @return
      */
     @Bean
+    @Lazy
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory lettuceConnectionFactory) {
         return new StringRedisTemplate(lettuceConnectionFactory);
     }
 
     @Bean(name = "lockDelRedisScript")
+    @Lazy
     public DefaultRedisScript<Long> lockDelRedisScript() {
         DefaultRedisScript<Long> unLock = new DefaultRedisScript<>();
         unLock.setScriptSource(new ResourceScriptSource(new ClassPathResource("lockDel.lua")));

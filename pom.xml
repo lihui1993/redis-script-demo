@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example.redisScript</groupId>
     <artifactId>redis-script-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>redis-script-demo</name>
     <description>Demo project for Spring Boot</description>
     <properties>

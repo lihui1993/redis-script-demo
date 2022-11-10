@@ -3,6 +3,7 @@ package com.example.redisscript.redisscriptdemo.service;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -10,9 +11,11 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
+@Lazy
 public class TryLockService {
 
     @Resource
+    @Lazy
     private RedissonClient redissonClient;
 
 

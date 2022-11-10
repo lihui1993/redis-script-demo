@@ -6,6 +6,7 @@ import com.example.redisscript.redisscriptdemo.dto.CommonResponse;
 import com.example.redisscript.redisscriptdemo.respEnum.ResponseEnum;
 import com.example.redisscript.redisscriptdemo.service.TryLockService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 public class TryLockController {
 
     @Resource
+    @Lazy
     private TryLockService tryLockService;
 
     @GetMapping("tryLockByKey/{key}")

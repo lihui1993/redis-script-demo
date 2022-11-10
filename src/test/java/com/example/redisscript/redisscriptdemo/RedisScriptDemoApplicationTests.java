@@ -5,6 +5,7 @@ import com.example.redisscript.redisscriptdemo.utils.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 class RedisScriptDemoApplicationTests {
 
     @Resource
+    @Lazy
     private TryLockService tryLockService;
 
     @Test
