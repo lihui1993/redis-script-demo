@@ -202,12 +202,18 @@ public class AliPayChannel {
      *
      * @param externalAgreementNo
      */
-    public AlipayUserAgreementQueryResponse cyclePayUserAgreementQuery(String externalAgreementNo) {
+    public AlipayUserAgreementQueryResponse cyclePayUserAgreementQuery(String externalAgreementNo,String agreementNo) {
         AlipayUserAgreementQueryRequest request = new AlipayUserAgreementQueryRequest();
         JSONObject bizContent = new JSONObject();
         bizContent.put("personal_product_code", "CYCLE_PAY_AUTH_P");///周期扣款产品时必传签约其它产品时无需传入
         bizContent.put("sign_scene", "INDUSTRY|APPSTORE");//签约场景：电子商城行业
-        bizContent.put("external_agreement_no", externalAgreementNo);//商户签约号
+        if (StringUtils.hasText(externalAgreementNo)) {
+            bizContent.put("external_agreement_no", externalAgreementNo);//商户签约号
+        }
+        if(StringUtils.hasText(agreementNo)){
+//            支付宝系统中用以唯一标识用户签约记录的编号（用户签约成功后的协议号 ） ，如果传了该参数，其他参数会被忽略
+            bizContent.put("agreement_no",agreementNo);
+        }
         request.setBizContent(bizContent.toString());
         log.info("externalAgreementNo:{}调用支付宝周期扣款签约查询参数{}", externalAgreementNo, bizContent);
         AlipayUserAgreementQueryResponse response = new AlipayUserAgreementQueryResponse();

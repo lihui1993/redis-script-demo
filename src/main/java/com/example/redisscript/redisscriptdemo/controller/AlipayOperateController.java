@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.alipay.api.response.AlipayUserAgreementUnsignResponse;
 import com.example.redisscript.redisscriptdemo.dto.*;
+import com.example.redisscript.redisscriptdemo.entity.OrderInfo;
 import com.example.redisscript.redisscriptdemo.service.AliPayChannel;
+import com.example.redisscript.redisscriptdemo.service.OrderInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -33,6 +36,8 @@ public class AlipayOperateController {
 
     @Resource
     private AliPayChannel aliPayChannel;
+    @Resource
+    private OrderInfoService orderInfoService;
 
     @Operation(
             summary = "支付宝纯退款接口"
@@ -61,8 +66,16 @@ public class AlipayOperateController {
         String[] channelAgreementNoList = request.getChannelAgreementNoList().split(",");
         JSONObject rj = new JSONObject();
         for (String channelAgreementNo : channelAgreementNoList) {
-            AlipayUserAgreementUnsignResponse response = aliPayChannel.cyclePayUserAgreementUnsign(request.getAliUserId(), null, channelAgreementNo, UnsignOperateTypeEnum.confirm);
-            rj.put(channelAgreementNo, response.getBody());
+            OrderInfo orderInfo = orderInfoService.checkIsTestOrderInfoByChannelAgreementNo(channelAgreementNo);
+            if (Objects.nonNull(orderInfo)) {
+                log.info("orderNo:{},channelAgreementNo:{},调用解约",orderInfo.getOrderNo(),channelAgreementNo);
+                AlipayUserAgreementUnsignResponse response = aliPayChannel.cyclePayUserAgreementUnsign(request.getAliUserId(), null, channelAgreementNo, UnsignOperateTypeEnum.confirm);
+                channelAgreementNo = "channelAgreementNo_".concat(channelAgreementNo).concat("_orderNo_").concat(orderInfo.getOrderNo());
+                rj.put(channelAgreementNo, response.getBody());
+            } else {
+                channelAgreementNo = "channelAgreementNo_".concat(channelAgreementNo);
+                rj.put(channelAgreementNo, "{\"checkIsTestOrder\":\"" + false + "\"}");
+            }
         }
         return new ResponseEntity<>(new CommonResponse<>(rj), HttpStatus.OK);
     }
