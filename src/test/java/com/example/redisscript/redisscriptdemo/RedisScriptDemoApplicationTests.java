@@ -85,20 +85,10 @@ class RedisScriptDemoApplicationTests {
     }
 
     @Test
-    public void testQueryOrderInfo(){
-        OrderInfo orderInfo = orderInfoService.checkIsTestOrderInfoByChannelAgreementNo("20225624864387778661");
-        if (Objects.nonNull(orderInfo)) {
-            log.info(orderInfo.toString());
-        }
-    }
-
-
-    @Test
     public void testCyclePayUserAgreementQuery() {
         AlipayUserAgreementQueryResponse response = aliPayChannel.cyclePayUserAgreementQuery("", "20225815878927017553");
         log.info(response.getBody());
     }
-
 
     @Test
     public void testCyclePayUserAgreementQueryFormFile() throws IOException {

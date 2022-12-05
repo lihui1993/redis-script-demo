@@ -9,7 +9,7 @@
 
     <contextName>logback</contextName>
 
-    <springProperty scope="context" name="LOG_PATH" source="logfile.path"/>
+    <springProperty scope="context" name="LOG_PATH" source="log.path"/>
     <!--日志文件名称：这里spring.application.name表示工程名称-->
     <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
 
@@ -84,7 +84,12 @@
         可以包含零个或多个元素，标识这个appender将会添加到这个logger。
     -->
 
-    <logger name="org.springframework.test.context" level="off"></logger>
+    <logger name="org.springframework.test.context" level="off"/>
+    <logger name="org.apache.http.wire" level="info"/>
+    <logger name="org.apache.http.headers" level="info"/>
+    <logger name="org.mybatis.spring.SqlSessionUtils" level="info"/>
+    <logger name="org.springframework.jdbc.datasource" level="info"/>
+    <logger name="org.mybatis.spring.transaction" level="info"/>
     <root level="debug">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
