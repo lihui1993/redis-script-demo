@@ -233,7 +233,7 @@ public class AliPayChannel {
      * @param deductTime
      * @param memo
      */
-    public AlipayUserAgreementExecutionplanModifyResponse cyclePayUserAgreementExecutionplanModify(String agreementNo, String deductTime, String memo) {
+    public AlipayUserAgreementExecutionplanModifyResponse cyclePayUserAgreementExecutionPlanModify(String agreementNo, String deductTime, String memo) {
         AlipayUserAgreementExecutionplanModifyRequest request = new AlipayUserAgreementExecutionplanModifyRequest();
         JSONObject bizContent = new JSONObject();
         bizContent.put("agreement_no", agreementNo);
@@ -244,6 +244,7 @@ public class AliPayChannel {
         AlipayUserAgreementExecutionplanModifyResponse response = new AlipayUserAgreementExecutionplanModifyResponse();
         try {
             response = alipayClient.certificateExecute(request);
+            log.info("agreementNo:{}周期性扣款协议执行计划修改返回结果：{}", agreementNo, response.getBody());
         } catch (AlipayApiException e) {
             log.error("agreementNo:{}调用周期性扣款协议执行计划修改异常{}", agreementNo, e);
         }
